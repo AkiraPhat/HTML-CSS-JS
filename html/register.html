@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <meta charset="utf-8">
+</head>
+<body onload="captcha();">
+<form onsubmit="return xuLy()">
+		<pre>
+			Tên Đăng Nhập    :			<input type="text" id="txtName">
+			Mật khẩu	     :			<input type="password" id="txtPass">
+			Xác Nhận Mật Khẩu:			<input type="password" id="txtXpass">
+			Kí Tên	:				<input type="text" id="txtSign">
+			Điện Thoại:				<input type="text" id="txtPhone">
+			Captcha:				<input type="text" id="txtCaptcha"><button type="button" onclick="captcha();">Refresh</button>
+			Confirm Captcha:			<input type="text" id="txtCap">
+						<input type="submit" value="Đăng Ký">
+		</pre>
+</form>
+</body>
+<script type="text/javascript">
+    var a="abcdefghijklmnopqrstuvwxyz";
+    var b="0123456789";
+    function xuLy(){
+        var x=document.getElementById("txtName").value;
+        var y=document.getElementById("txtPass").value;
+        var z=document.getElementById("txtXpass").value;
+        var s=document.getElementById("txtSign").value;
+        var t=document.getElementById("txtPhone").value;
+        var cap=document.getElementById("txtCaptcha").value;
+        var cap1=document.getElementById("txtCap").value;
+        // Xu Ly Email
+        var aCong=x.indexOf("@");
+        var daucham=x.lastIndexOf(".");
+        if (x == "") {
+            window.alert("Email không được để trống");
+            return false;
+        }
+        else if ((aCong<1) || (daucham<aCong+2) || (daucham+2>x.length)) {
+            window.alert("Email bạn điền không chính xác");
+            return false;
+        }
+        // Xu Ly Mat Khau
+        if(y==""){
+            window.alert("Khong de trong mat khau!");
+            return false;
+        }else if( y.length!=8){
+            window.alert("Nhap 8 ki tu!");
+            return false;
+        }
+        // Xu ly Mat Khau
+        if(y !=z){
+            window.alert("Vui Long Xac Nhan Lai Mat Khau!");
+            return false;
+        }
+        // Xu Ly chu ky
+        if(s==""){
+            window.alert("Vui Long Nhap Chu Ki!");
+            return false;
+        }else{
+            for(var j=0;j<s.length;j++){
+                if(a.indexOf(s.charAt(j))==-1){
+                    window.alert("Vui Long Khong Nhap So!");
+                    return false;
+                }
+            }
+        }
+        //Xu ly dien thoai
+        if(t==""){
+            window.alert("Vui Long Nhap So Phone!");
+            return false;
+        }
+        for(var h=0;h<s.length;h++){
+            if(b.indexOf(t.charAt(h))==-1){
+                window.alert("Vui Long Nhap So!");
+                return false;
+            }
+        }
+        // cach 2:
+        //if(isNaN(t) == true){
+        //	window.alert("khong phai dinh dang so!");
+        //	return false;
+        //}
+        if(cap1 ==""){
+            window.alert("Vui Long Nhap Captcha!");
+            return false;
+        }else if(cap !=cap1){
+            window.alert("Nhap chua chinh xac!");
+            return false;
+        }
+        window.alert("Done!");
+        return false;
+
+    }
+    function captcha(){
+        var alpha = new Array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
+        var number = new Array('0','1','2','3','4','5','6','7','8','9');
+        for(var i=0;i<4;i++){
+            var x1=alpha[Math.floor(Math.random() *alpha.length)];
+            var x2=alpha[Math.floor(Math.random() *alpha.length)];
+            var x3=number[Math.floor(Math.random() *number.length)];
+            var x4=alpha[Math.floor(Math.random() *alpha.length)];
+            var x5=number[Math.floor(Math.random() *number.length)];
+        }
+        var code=x1+x2+x3+x4+x5;
+        document.getElementById("txtCaptcha").value =code;
+    }
+</script>
+</html>
